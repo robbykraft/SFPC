@@ -26,11 +26,14 @@ s.draw = function() {
 	s.stroke(200);
 	s.noFill();
 	s.rect(canvasTopLeft.x -shapeSize*.5, canvasTopLeft.y, shapeSize*2, shapeSize)
+	s.stroke(0);
+	s.fill(0);
 	for(var i = 0; i < 1; i+=(1.0/shapeSize) ){
 		var val = expr(i);
 		s.stroke((1.0-val)*255);
 		s.fill((1.0-val)*255);
-		s.ellipse(canvasTopLeft.x -shapeSize*.5 + i*shapeSize * 2, canvasTopLeft.y + shapeSize - shapeSize*s.random(1.0), 2, 2);
+		// if(s.random(1.0) > val)
+			s.ellipse(canvasTopLeft.x -shapeSize*.5 + i*shapeSize * 2, canvasTopLeft.y + shapeSize - shapeSize*s.random(1.0), 2, 2);
 	}
 	s.stroke(0);
 	s.fill(0);
