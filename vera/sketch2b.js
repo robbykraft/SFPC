@@ -17,7 +17,7 @@ function centerPiece(){
 }
 
 function expr(f){
-	return (s.cos(f*s.PI*2)+1)/2;
+	return (f);
 }
 
 s.draw = function() {
