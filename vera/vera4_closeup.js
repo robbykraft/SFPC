@@ -12,7 +12,7 @@ s.setup = function() {
 	var canvas = s.createCanvas(s.windowWidth, s.windowHeight);
 	TL = {x:(s.windowWidth*.5-COLUMNS*.5*SPACING + 50), y:(s.windowHeight*.5-ROWS*.5*SPACING)};
 	PERTURB = 6;
-	FREQUENCY = s.createSlider(3, 80, 12);
+	FREQUENCY = s.createSlider(3, 80, 40);
 	FREQUENCY.position(s.windowWidth*.5 - SLIDER_W*.5, canvas.position().y + 10);
 	s.noLoop();
 }
