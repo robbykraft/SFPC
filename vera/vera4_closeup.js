@@ -1,4 +1,4 @@
-var vera4b = function(s){
+var vera4_closeup = function(s){
 
 var COLUMNS = 3;
 var ROWS = 1;
@@ -66,4 +66,4 @@ s.mouseDragged = function(){
 }
 
 } 
-var fourB = new p5(vera4b, 'vera4b');
+var fourB = new p5(vera4_closeup, 'vera4_closeup');
