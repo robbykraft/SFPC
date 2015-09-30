@@ -9,11 +9,11 @@ var TL;
 var PERTURB, FREQUENCY;
 var SLIDER_W = 130;
 s.setup = function() {
-	var canvas = s.createCanvas(s.windowWidth, s.windowHeight);
-	TL = {x:(s.windowWidth*.5-COLUMNS*.5*SPACING + 50), y:(s.windowHeight*.5-ROWS*.5*SPACING)};
+	var canvas = s.createCanvas(s.windowWidth, s.windowHeight * .66);
+	TL = {x:(s.windowWidth*.5-COLUMNS*.5*SPACING + 50), y:(s.windowHeight*.33-.5*SIDE)};
 	PERTURB = 6;
-	FREQUENCY = s.createSlider(3, 80, 40);
-	FREQUENCY.position(s.windowWidth*.5 - SLIDER_W*.5, canvas.position().y + 10);
+	FREQUENCY = s.createSlider(8, 60, 32);
+	FREQUENCY.position(s.windowWidth*.5 - SLIDER_W*.5, canvas.position().y + 5);
 	s.noLoop();
 }
 
@@ -37,30 +37,33 @@ function perturbedRect(x, y, width, height, X_PERTURB, Y_PERTURB){
 	s.line(bottomLeft.x, bottomLeft.y, topLeft.x, topLeft.y);
 }
 
-function expr(f){
-	return (s.cos(f*s.PI*2-s.PI)+1)/2;
-}
-
 s.draw = function() {
 	s.clear();
 	var c;
-	// console.log(FREQUENCY.value());
 	c = 0;
 	var width = SIDE;
 	while(width > 0){
 		perturbedRect( TL.x + (SIDE*.5) + c * SPACING-(width*.5), TL.y + (SIDE*.5) - (width*.5), width, width, PERTURB/100.0, PERTURB/100.0);
-		width -= s.random(FREQUENCY.value()) + 1;
+		width -= s.random( (FREQUENCY.value()/80) * SIDE *.5) + 1;
 	}
 	c = 1;
 	var width = SIDE;
 	while(width > 0){
 		perturbedRect( TL.x + (SIDE*.5) + c * SPACING-(width*.5), TL.y + (SIDE*.5) - (width*.5), width, width, PERTURB/100.0, PERTURB/100.0);
-		width -= s.random( (FREQUENCY.value()/80) * SIDE ) + 1;
+		width -= s.random( (FREQUENCY.value()/80) * SIDE *.5) + 1;
+		if(s.random(10) < 1){
+			perturbedRect( TL.x + (SIDE*.5) + c * SPACING-(width*.5), TL.y + (SIDE*.5) - (width*.5), width, width, PERTURB/100.0, PERTURB/100.0);
+			width -= s.random( (FREQUENCY.value()/80) * SIDE * 2) + 1;
+		}
 	}
 	c = 2;
 	var width = SIDE;
 	while(width > 0){
 		perturbedRect( TL.x + (SIDE*.5) + c * SPACING-(width*.5), TL.y + (SIDE*.5) - (width*.5), width, width, PERTURB/100.0, PERTURB/100.0);
+		if(s.random(10) < 1){
+			perturbedRect( TL.x + (SIDE*.5) + c * SPACING-(width*.5), TL.y + (SIDE*.5) - (width*.5), width, width, PERTURB/100.0, PERTURB/100.0);
+			width -= s.random( (FREQUENCY.value()/80) * SIDE * 2) + 1;
+		}
 		if(s.random(10) < 1){
 			var count = 0;
 			while(width > 0 && count < s.random(6)+2){
@@ -69,17 +72,17 @@ s.draw = function() {
 				count++;
 			}
 		}
-		width -= s.random(FREQUENCY.value()) + 1;
+		width -= s.random( (FREQUENCY.value()/80) * SIDE *.5) + 1;
 	}
 }
 
 s.mousePressed = function(){
-	if(s.mouseY > 0 && s.mouseY < s.windowHeight)
+	if(s.mouseY > 0 && s.mouseY < s.windowHeight*.66)
 		s.draw();
 }
 
 s.mouseDragged = function(){
-	if(s.mouseY > 0 && s.mouseY < s.windowHeight)
+	if(s.mouseY > 0 && s.mouseY < s.windowHeight*.66)
 		s.draw();
 }
 

@@ -46,6 +46,7 @@ function perturbedRect(x, y, width, height, X_PERTURB, Y_PERTURB){
 s.draw = function() {
 	s.clear();
 	s.stroke(225);
+	s.noFill();
 	s.strokeWeight(5);
 	s.rect(canvasTopLeft.x, canvasTopLeft.y, shapeSize, shapeSize);
 
