@@ -30,15 +30,18 @@ s.draw = function() {
 	s.fill(0);
 	for(var i = 0; i < 1; i+=(1.0/shapeSize) ){
 		var val = expr(i);
-		s.stroke((1.0-val)*255);
-		s.fill((1.0-val)*255);
+		s.stroke(0, val*255);
+		s.fill(0, val*255);
 		// if(s.random(val) > 0.5)
 			s.ellipse(canvasTopLeft.x -shapeSize*.5 + i*shapeSize * 2, canvasTopLeft.y + shapeSize - shapeSize*s.random(1.0), 2, 2);
 	}
 	s.stroke(0);
 	s.fill(0);
+	s.strokeWeight(3);
+	var lastPoint = {x:(canvasTopLeft.x -shapeSize*.5 + 0*shapeSize * 2), y:(canvasTopLeft.y + shapeSize - shapeSize*expr(0))};
 	for(var i = 0; i < 1; i+=(1.0/shapeSize) ){
-		s.ellipse(canvasTopLeft.x -shapeSize*.5 + i*shapeSize * 2, canvasTopLeft.y + shapeSize - shapeSize*expr(i), 2, 2);
+		s.line(lastPoint.x, lastPoint.y, canvasTopLeft.x -shapeSize*.5 + i*shapeSize * 2, canvasTopLeft.y + shapeSize - shapeSize*expr(i));
+		lastPoint = {x:(canvasTopLeft.x -shapeSize*.5 + i*shapeSize * 2), y:(canvasTopLeft.y + shapeSize - shapeSize*expr(i))};
 	}
 }
 
