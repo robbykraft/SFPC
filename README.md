@@ -10,3 +10,6 @@ recode of Vera Molnár's works in p5.js
 * 4: (Dés-)Ordres, 1974
 * 5: Path at right angles (installation), 2011
 
+## /whitney/
+
+recode of James and John Whitney's works in p5.js
