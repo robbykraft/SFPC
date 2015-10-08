@@ -1,0 +1,101 @@
+<html>
+<head>
+<style> body {padding: 0; margin: 0;} </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="http://robbykraft.com/three.min.js"></script>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        void main() {
+            gl_Position = vec4( position, 1.0 );
+        }
+    </script>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+uniform vec2 u_resolution;
+uniform float u_time;
+
+void main(){
+    vec2 scale = gl_FragCoord.xy/u_resolution.xy;
+    float aspect = u_resolution.x/u_resolution.y;
+    scale = vec2(gl_FragCoord.x/u_resolution.x, gl_FragCoord.y/u_resolution.y);
+    vec3 color = vec3(0.0);
+
+    // vec2 pos = vec2(0.5)-scale;
+    // float mult = 3600. + 1250.*sin(u_time*.01);
+    // float a = 0.;
+    // float f = cos(atan(pos.y,pos.x)*mult);
+
+    vec2 pos = vec2(0.5-scale.x, 0.5-scale.y);
+    float r = length(pos)*2.0;
+
+    float mult = 36. + 12.*sin(u_time*.02 + r*10.);
+    float a = 0.;
+    float f = cos(atan(pos.x,pos.y)*mult);
+   
+    float mult2 = 2. + 2.*sin(u_time*.1+r*100.);
+    float a2 = 0.;
+    float f2 = cos(atan(pos.x,-pos.y)*mult2);
+    
+    color = vec3( 0.0, 0.0, .33 - (f+f2)/3.);
+    gl_FragColor = vec4(color, 1.0);
+}
+    </script>
+    <script>
+        var container;
+        var camera, scene, renderer;
+        var uniforms;
+
+        init();
+        animate();
+
+        function init() {
+            container = document.getElementById( 'container' );
+
+            camera = new THREE.Camera();
+            camera.position.z = 1;
+
+            scene = new THREE.Scene();
+
+            var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
+
+            uniforms = {
+                u_time: { type: "f", value: 1.0 },
+                u_resolution: { type: "v2", value: new THREE.Vector2() }
+            };
+
+            var material = new THREE.ShaderMaterial( {
+                uniforms: uniforms,
+                vertexShader: document.getElementById( 'vertexShader' ).textContent,
+                fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+            } );
+
+            var mesh = new THREE.Mesh( geometry, material );
+            scene.add( mesh );
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio( window.devicePixelRatio );
+
+            container.appendChild( renderer.domElement );
+
+            onWindowResize();
+            window.addEventListener( 'resize', onWindowResize, false );
+        }
+
+        function onWindowResize( event ) {
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            uniforms.u_resolution.value.x = renderer.domElement.width;
+            uniforms.u_resolution.value.y = renderer.domElement.height;
+        }
+
+        function animate() {
+            requestAnimationFrame( animate );
+            render();
+        }
+
+        function render() {
+            uniforms.u_time.value += 0.05;
+            renderer.render( scene, camera );
+        }
+    </script>
+</body>
+</html>
