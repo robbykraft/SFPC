@@ -13,3 +13,7 @@ recode of Vera Molnár's works in p5.js
 ## /whitney/
 
 recode of James and John Whitney's works in p5.js
+
+## /morisawa/
+
+Oculus Rift immersive experience of a Morisawa poster by John Maeda, built in OpenFrameworks
